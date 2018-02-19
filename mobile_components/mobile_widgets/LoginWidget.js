@@ -4,7 +4,8 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    Button
 } from 'react-native';
 import style from '../StyleMobile';
 import PropTypes from 'prop-types';
@@ -17,8 +18,8 @@ const LoginWidget = (props) => (
     <View style={style.column}>
         <View style={style.row}><Text>Введите ваше имя: </Text></View>
         <View style={style.row}>
-            <TextInput style={style.inputMessage} value={props.loginName} onChangeText={props.onchangeLoginName}></TextInput>
-            <TouchableOpacity style={style.buttons} onPress={EventSystem.events.loginTry}><Text>Войти в чат</Text></TouchableOpacity>
+            <TextInput value={props.loginName} onChangeText={props.onchangeLoginName}></TextInput>
+            <Button onPress={EventSystem.events.loginTry} title="Войти в чат"/>
 
         </View>
     </View>

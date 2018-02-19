@@ -20,7 +20,7 @@ class MsgAreaWidget extends Component {
                 </View>);
 
         return (
-            <View style={style.messagesArea}>
+            <View style={style.column}>
                 {this.props.messages.map(({id, senderName, msgText}) => (
                     <View key={id} style={style.row}>
                         <View>

@@ -4,7 +4,8 @@ import {
     Text,
     View,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    Button
 } from 'react-native';
 import style from "../StyleMobile";
 import PropTypes from 'prop-types';
@@ -14,12 +15,12 @@ import {changeMsgAction, chatsActionFunction, getChatsAction} from '../actions';
 import axios from "axios";
 
 const HeaderWidget = (props)=>
-    (<View style={style.formSendMsg}>
+    (<View style={style.row}>
             <View style={style.row}><Text>Ваше имя: {props.senderName}</Text></View>
             <View style={style.row}>
-                <TextInput style={style.inputMessage} value={props.msgForSend} onChangeText={props.onchangeMsg}></TextInput>
-                <TouchableOpacity style={style.TouchableOpacitys} onPress={EventSystem.events.sendMsg}><Text>Отправить сообщение</Text></TouchableOpacity>
-                <TouchableOpacity style={style.TouchableOpacitys} onPress={EventSystem.events.exitChat}><Text>Покинуть чат</Text></TouchableOpacity>
+                <TextInput value={props.msgForSend} onChangeText={props.onchangeMsg}></TextInput>
+                <Button onPress={EventSystem.events.sendMsg} title="Отправить сообщение"/>
+                <Button onPress={EventSystem.events.exitChat} title = "Покинуть чат"/>
             </View>
 
         </View>
