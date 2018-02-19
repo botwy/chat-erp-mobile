@@ -15,7 +15,7 @@ import {changeLoginNameAction} from '../actions';
 
 const LoginWidget = (props) => (
     <View style={style.column}>
-        <Text style={style.row}>Введите ваше имя: </Text>
+        <View style={style.row}><Text>Введите ваше имя: </Text></View>
         <View style={style.row}>
             <TextInput style={style.inputMessage} value={props.loginName} onChangeText={props.onchangeLoginName}></TextInput>
             <TouchableOpacity style={style.buttons} onPress={EventSystem.events.loginTry}><Text>Войти в чат</Text></TouchableOpacity>

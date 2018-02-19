@@ -3,9 +3,16 @@ import {loginAction, getChatsAction, didSendMsgAction, didExitFromChatAction, di
 
 class EventSystem {
 
+    static get host() {
+        return "http://192.168.1.4";
+    }
+
+    static get port() {
+        return "8080";
+    }
 
    static getChats() {
-        axios.get('http://192.168.0.2:8080/chat/allchats')
+        axios.get(EventSystem.host+':'+EventSystem.port+'/chat/allchats')
             .then((response) => {
                 const newMessages = response.data.reverse();
                 if (newMessages.length>EventSystem.prevMsgsLength) EventSystem.store.dispatch(getChatsAction(newMessages));
@@ -18,7 +25,7 @@ class EventSystem {
             //? так плохо?
             //const name = document.getElementById("login_input").value;
         //    alert("try request to server");
-            axios.get('http://192.168.0.2:8080/chat/login?name='+loginName)
+            axios.get(EventSystem.host+':'+EventSystem.port+'/chat/login?name='+loginName)
                 .then((response) => {
                     if (response.data===false) {
                         alert("Введите другое имя!");
@@ -27,7 +34,6 @@ class EventSystem {
                        // alert("O.K.");
                         // this.props.loginToChat();
                         EventSystem.intervalId = setInterval(()=>EventSystem.getChats(),3000);
-                        window.addEventListener("beforeunload", EventSystem.events.tabClose);
                         EventSystem.store.dispatch(loginAction(loginName));
                         EventSystem.getChats();
                     }
@@ -39,7 +45,7 @@ class EventSystem {
 
     static sendMsgEvent(senderName,msgText) {
         const msg = {senderName, msgText};
-        axios.post('http://localhost:8080/chat/new_msg', msg)
+        axios.post(EventSystem.host+':'+EventSystem.port+'/chat/new_msg', msg)
             .then((response) => {
                 if (response.data===true) {
                     EventSystem.getChats();
@@ -51,7 +57,7 @@ class EventSystem {
     }
 
     static exitChatEvent(senderName) {
-        axios.get('http://localhost:8080/chat/exit?name='+senderName)
+        axios.get(EventSystem.host+':'+EventSystem.port+'/chat/exit?name='+senderName)
             .then((response) => {
                 if (response.data===true) {
                     clearInterval(EventSystem.intervalId);
@@ -63,7 +69,7 @@ class EventSystem {
     }
 
     static returnChatEvent(senderName) {
-        axios.get('http://localhost:8080/chat/return?name='+senderName)
+        axios.get(EventSystem.host+':'+EventSystem.port+'/chat/return?name='+senderName)
             .then((response) => {
                 if (response.data===true) {
                     EventSystem.intervalId = setInterval(()=>EventSystem.getChats(),3000);
@@ -76,7 +82,7 @@ class EventSystem {
     }
 
     static tabCloseEvent(e, senderName) {
-        axios.get('http://localhost:8080/chat/close?name=' + senderName)
+        axios.get(EventSystem.host+':'+EventSystem.port+'/chat/close?name=' + senderName)
             .then().catch((errror) => console.error(errror));
         clearInterval(EventSystem.intervalId);
         EventSystem.store.dispatch(didTabCloseAction()) ;
