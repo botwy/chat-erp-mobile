@@ -32,7 +32,7 @@ export const initialStore = {
         }
     },
     ui: {
-        activity: "productsList",
+        activity: {type: "main", entity:{type:undefined, id: undefined}},
         elemOptions:{
             byId:{
                elemList:{

@@ -10,14 +10,21 @@ import {activityList} from "./activity/activityList";
 class ErpApp extends Component {
 
     render() {
-        console.log(this.props.activity);
-        const Activity =  activityList[this.props.activity];
+        const Activity =  activityList[this.props.activity.type];
         return (
            <Activity/>
         );
     }
 }
 
+ErpApp.propTypes = {
+    activity: PropTypes.shape({
+        type: PropTypes.string.isRequired,
+        entity: PropTypes.object.isRequired,
+        }
+    ).isRequired
+};
+
 export default connect(
-    store=>({activity:store.ui.activity||"default"})
+    store=>({activity:store.ui.activity||{type:"default"}})
 )(ErpApp);
