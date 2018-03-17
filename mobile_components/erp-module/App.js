@@ -6,11 +6,14 @@ import {View, Text, ScrollView} from 'react-native';
 import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {activityList} from "./activity/activityList";
+import RootActivity from "./activity/RootActivity";
 
 class ErpApp extends Component {
 
     render() {
         const Activity =  activityList[this.props.activity.type];
+        return <RootActivity/>;
+
         return (
            <Activity/>
         );
