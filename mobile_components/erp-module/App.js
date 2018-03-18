@@ -7,12 +7,13 @@ import PropTypes from 'prop-types';
 import {connect} from "react-redux";
 import {activityList} from "./activity/activityList";
 import RootActivity from "./activity/RootActivity";
+import {FORM_MODE} from '../erp-module/activity/ui-elements/formMode';
 
 class ErpApp extends Component {
 
     render() {
         const Activity =  activityList[this.props.activity.type];
-        return <RootActivity/>;
+        return <RootActivity formMode={FORM_MODE.READ}/>;
 
         return (
            <Activity/>

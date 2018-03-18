@@ -1,0 +1,7 @@
+export const FORM_MODE ={
+    READ: 'READ',
+    UPDATE: 'UPDATE',
+    CREATE: 'CREATE',
+    DELETE_LIST: 'DELETE_LIST',
+    RADIO_LIST: 'RADIO_LIST'
+}

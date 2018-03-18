@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
-import {Form} from './Form';
+import {FormConstructor} from './ui-elements/FormConstructor';
 import {inputTextElem} from './ui-elements/inputTextElem';
+import {getInp, getInpHandler, validateNumber, validateText} from './ui-elements/Helpers';
+import {FORM_MODE} from './ui-elements/formMode';
 
 class RootActivity extends Component {
     constructor(props) {
@@ -14,31 +16,36 @@ class RootActivity extends Component {
             house: '54',
             office: '215'
         }
+        this.getInp = getInp;
+        this.getInpHandler = getInpHandler;
     }
 
-    getElem =(label,value,onChange) =>(
-        {elem:inputTextElem, options: {label, value, onChange}}
-    )
+componentWillMount() {
+
+}
+
 
     getUi = () => {
-        const {postIndex, city, province, street, house, office} = this.state;
-
+        const {formMode} = this.props;
+     const vl = validateText;
+     const vlNum = validateNumber;
         return    ({
             uiElems:
                 [
-                    this.getElem("индекс", postIndex, postIndex => this.setState({postIndex})),
-                    this.getElem("город", city, city => this.setState({city})),
-                    this.getElem("ростовская", province, province => this.setState({province})),
-                    this.getElem("# дома", house, house => this.setState({house})),
-                    this.getElem("улица", street, street => this.setState({street})),
-                    this.getElem("кв.", office, office => this.setState({office}))
+                    formMode===FORM_MODE.CREATE &&  this.getInp("form mode", "postIndex"),
+                    this.getInp("индекс", "postIndex"),
+                    this.getInp("город", "city"),
+                    this.getInp("регион", "province"),
+                    this.getInp("# дома", "house"),
+                    this.getInp("улица", "street"),
+                    this.getInp("кв.", "office")
                 ]
         })
     }
 
 
 render() {
-        return <Form {...this.getUi()}/>}
+        return <FormConstructor {...this.getUi()}/>}
 }
 
 export default RootActivity;
